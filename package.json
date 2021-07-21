@@ -1,0 +1,37 @@
+{
+  "name": "jrmall-bridge",
+  "version": "1.0.0",
+  "description": "jrmall-bridge",
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint service/",
+    "test:fix": "eslint service/ --fix",
+    "info:dev": "serverless info -v --stage staging",
+    "deploy:dev": "serverless deploy -v --stage staging",
+    "deploy:prodnow": "serverless deploy -v --stage production",
+    "build": "babel ./service/ --out-dir ./build/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.947.0",
+    "axios": "^0.21.1",
+    "crypto-js": "^4.0.0",
+    "date-and-time": "^1.0.1",
+    "moment": "^2.29.1",
+    "nanoid": "^2.1.11",
+    "serverless-pseudo-parameters": "^2.6.0",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.14.5",
+    "@babel/core": "^7.14.6",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.14.7",
+    "eslint": "^7.31.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.23.4",
+    "serverless-prune-plugin": "^1.5.1"
+  }
+}

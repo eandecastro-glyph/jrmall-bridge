@@ -1,0 +1,31 @@
+# VPC CONFIGS #
+SECURITY_GROUP_ID: 'sg-2b6dcd61'
+SUBNET_ONE: 'subnet-baaf4185'
+SUBNET_TWO: 'subnet-3c376210'
+SUBNET_THREE: 'subnet-0e13c4e5e0b060e6e'
+
+
+# TAGS #
+NAME: jrmall-bridge
+PROJECT: PHOENIX
+ENVIRONMENT: STAGING
+APPLICATION_ROLE: LAMBDA_MICRO
+
+
+# DYNAMODB TABLE 
+MAIN_TABLE: jrb_transactions_stg
+PRIMARY_KEY: referenceId
+
+# PHOENIX STAGING CONFIG
+PHOENIX_API_SRC: 'joyride'
+PHOENIX_API_EMAIL: 'jrdealer@yopmail.com'
+PHOENIX_API_TAG: 'joyride'
+PHOENIX_API_SECRET: 'bzS86llP81H.Q5b9gOBeSY0D-?hyr6+6V6plhv?SC@b.e#!@?*qYoBoCsitWm4E'
+PHOENIX_API_KEY: 'gu21ww_6bggrpK4c-RLo4oc!@AY3h?_gABvaWT4X59zq8=gi9RgXVFqBmH9vEOh#'
+PHOENIX_API_URL: 'https://stg-api.phoenixph.com/api/'
+SELLER_ID: '0fd99077-df82-441f-b7d4-cf0b892e6936'
+
+#FOR CONSUMPTION
+PHOENIX_STG_PAYMENT: "https://us-central1-cignal-273002.cloudfunctions.net/paygate-jrms-create"
+PHOENIX_STG_EMAIL_JRMALL: "https://nwluzav4p1.execute-api.us-east-1.amazonaws.com/dev/email/"
+PHOENIX_STG_PREFIX_MICRO: "https://kbz20njm79.execute-api.us-east-1.amazonaws.com/staging/msisdn/verify/"

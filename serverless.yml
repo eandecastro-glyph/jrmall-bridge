@@ -1,0 +1,80 @@
+custom:
+  stage : ${opt:stage, 'dev'}
+  prune:
+    automatic: true
+    number: 10
+service: jrmall-bridge
+variablesResolutionMode: 20210119
+plugins:
+  - serverless-prune-plugin
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  endpointType: REGIONAL
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  environment: ${file(config.${self:custom.stage}.yml)}
+  vpc: 
+      securityGroupIds: 
+        - ${file(config.${self:custom.stage}.yml):SECURITY_GROUP_ID}
+      subnetIds:
+        - ${file(config.${self:custom.stage}.yml):SUBNET_ONE}
+        - ${file(config.${self:custom.stage}.yml):SUBNET_TWO}
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - 'lambda:InvokeFunction'
+      Resource: "*"
+    - Effect: Allow
+      Action:
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:GetItem
+      Resource: "arn:aws:dynamodb:${opt:region, 'us-east-1'}:*:table/${file(config.${self:custom.stage}.yml):MAIN_TABLE}"
+
+functions:
+  productList:
+    handler: build.productList
+    timeout: 30
+    events:
+      - http:
+          path: /jrmall/products
+          method: get
+
+  paymentUrl:
+    handler: build.createPaymentUrl
+    timeout: 30
+    events:
+      - http:
+          path: /jrmall/payment
+          method: post
+          cors: true
+  
+  status:
+    handler: build.updateStatus
+    timeout: 30
+    events:
+      - http:
+          path: /jrmall/status
+          method: put
+          cors: true
+  
+  order:
+    handler: build.getOrderDetails
+    timeout: 30
+    events:
+      - http:
+          path: /jrmall/order/{referenceId}
+          method: get
+          cors: true
+
+  verifyMobileOperator:
+      handler: build.verifyPrefix
+      timeout: 30
+      events:
+        - http:
+            path: /jrmall/verify/{mobileNumber}
+            method: get
+            cors: true
